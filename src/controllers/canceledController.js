@@ -1,0 +1,97 @@
+const { CanceledLesson } = require("../database/models/canceled_lessons")
+
+class CanceledController {
+    async get(req, res) {
+        try {
+            const canceledLessons = await CanceledLesson.findAll();
+
+            if (canceledLessons.length === 0) {
+                res.status(404).json({"message": "Canceled lessons not found"})
+            }
+
+            return res.json({"canceledLessons": canceledLessons})
+        } catch (error) {
+            return res.status(500).json({"message": `${error}`})
+            
+        }
+    };
+
+    async getOne(req, res) {
+        try {
+            const { canceledId } = req.params;
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
+
+            if (!canceledLesson) {
+                return res.status(404).json({"message": "Canceled lesson not found"})
+            }
+
+            return res.json({"canceledLesson": canceledLesson})
+            
+        } catch (error) {
+            return res.status(500).json({"message": `${error}`})
+        }
+    }
+
+    async post(req, res) {
+        try {
+            const {lessonId, reason} = req.body;
+
+            if (!lessonId || !reason) {
+            return res.status(404).json({"message": "Payload is incorrect"}); 
+            }
+
+            const newCanceled = await CanceledLesson.create({
+                lessonId,
+                reason
+            })
+
+            return res.status(201).json({"canceled": newCanceled});
+        } catch (error) {
+            return res.status(500).json({"message": `${error}`})
+        }
+    }
+
+    async put(req, res) {
+        try {
+            const { canceledId } = req.params;
+            const {lessonId, reason} = req.body;
+
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
+
+            if (!canceledLesson) {
+                return res.status(404).json({"message": "Canceled lesson not found"})
+            }
+
+            await canceledLesson.update({
+                lessonId,
+                reason
+            })
+
+            return res.status(200).json({"canceledLesson": canceledLesson});
+        } catch (error) {
+            return res.status(500).json({"message": `${error}`})
+        }
+    }
+
+    async delete(req, res) {
+        try {
+            const { canceledId } = req.params;
+
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
+
+            if (!canceledLesson) {
+                return res.status(404).json({"message": "Canceled lesson not found"})
+            }
+
+            await CanceledLesson.destroy({
+                where: { id: canceledId }
+            });
+
+            return res.status(200).json({"message": "Canceled lesson deleted"});
+        } catch (error) {
+            return res.status(500).json({"message": `${error}`});
+        }
+    }
+}
+
+module.exports = { CanceledController };
