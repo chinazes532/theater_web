@@ -40,7 +40,7 @@ class LessonController {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
-            date = new Date(date);
+            date = new Date(date); 
 
             const newLesson = await Lesson.create({
                 studentId,
