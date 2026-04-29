@@ -4,7 +4,7 @@ const { sequelize } = require('../dbServer');
 const Teacher = sequelize.define(
     'Teacher',
     {
-        fullName: {
+        full_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -12,7 +12,7 @@ const Teacher = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        birthayDate: {
+        birthay_date: {
             type: DataTypes.DATE,
             allowNull: false
         },

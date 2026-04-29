@@ -5,10 +5,13 @@ const express = require("express");
 
 const testAppRoutes = require("./routes/testRouter");
 const studentRoutes = require("./routes/studentRouter");
-const teacherRoutes = require("./routes/teacherController");
+const teacherRoutes = require("./routes/teacherRouter");
 const disciplineRoutes = require("./routes/disciplineRouter");
 const lessonRoutes = require("./routes/lessonRouter");
 const canceledRoutes = require("./routes/canceledRouter");
+const userRoutes = require("./routes/userRouter");
+
+const authMiddleware = require('../src/middlewares/authMiddleware');
 
 require("dotenv").config();
 
@@ -20,12 +23,13 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/test", testAppRoutes);
-app.use("/students", studentRoutes);
-app.use("/teachers", teacherRoutes);
-app.use("/lessons", lessonRoutes);
-app.use("/discipline", disciplineRoutes);
-app.use("/canceled", canceledRoutes);
+app.use("/test", authMiddleware(), testAppRoutes);
+app.use("/students", authMiddleware(), studentRoutes);
+app.use("/teachers", authMiddleware(), teacherRoutes);
+app.use("/lessons", authMiddleware(), lessonRoutes);
+app.use("/discipline", authMiddleware(), disciplineRoutes);
+app.use("/canceled", authMiddleware(), canceledRoutes);
+app.use("/users", userRoutes);
 
 (async () => {
     await initDB();

@@ -4,16 +4,12 @@ const { sequelize } = require('../dbServer');
 const User = sequelize.define(
     'User',
     {
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         username: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
-        hashedPassword: {
+        hashed_password: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -18,8 +18,8 @@ class LessonController {
 
     async getOne(req, res) {
         try {
-            const { lessonId } = req.params;
-            const lesson = await Lesson.findByPk(lessonId);
+            const { lesson_id } = req.params;
+            const lesson = await Lesson.findByPk(lesson_id);
 
             if (!lesson) {
                 return res.status(404).json({"message": "Lesson not found"})
@@ -34,18 +34,18 @@ class LessonController {
 
     async post(req, res) {
         try {
-            const {studentId, teacherId, disciplineId, date} = req.body;
+            const {student_id, teacher_id, discipline_id, date} = req.body;
 
-            if (!studentId || !teacherId || !disciplineId || !date) {
+            if (!student_id || !teacher_id || !discipline_id || !date) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             date = new Date(date); 
 
             const newLesson = await Lesson.create({
-                studentId,
-                teacherId,
-                disciplineId,
+                student_id,
+                teacher_id,
+                discipline_id,
                 date
             })
 
@@ -58,7 +58,7 @@ class LessonController {
     async put(req, res) {
         try {
             const {lessonId} = req.params;
-            const {studentId, teacherId, disciplineId, date} = req.body;
+            let {student_id, teacher_id, discipline_id, date} = req.body;
 
             const lesson = await Lesson.findByPk(lessonId);
 
@@ -66,12 +66,14 @@ class LessonController {
                 return res.status(404).json({"message": "Lesson not found"})
             }
 
-            date = new Date(date);
+            if (date) {
+                date = new Date(date);
+            }
 
             await lesson.update({
-                studentId,
-                teacherId,
-                disciplineId,
+                student_id,
+                teacher_id,
+                discipline_id,
                 date
             })
 
@@ -83,15 +85,15 @@ class LessonController {
 
     async delete(req, res) {
         try {
-           const {lessonId} = req.params;
-           const lesson = await Lesson.findByPk(lessonId);
+           const {lesson_id} = req.params;
+           const lesson = await Lesson.findByPk(lesson_id);
 
            if (!lesson) {
                 return res.status(404).json({"message": "Lesson not found"})
             }
 
             await Lesson.destroy({
-                where: { id: lessonId }
+                where: { id: lesson_id }
             });
 
             return res.status(200).json({"message": "Lesson deleted"});

@@ -18,8 +18,8 @@ class StudentController {
 
     async getOne(req, res) {
         try {
-            const { studentId } = req.params;
-            const student = await Student.findByPk(studentId);
+            const { student_id } = req.params;
+            const student = await Student.findByPk(student_id);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
@@ -34,16 +34,16 @@ class StudentController {
 
     async post(req, res) {
         try {
-            const {fullName, phone, birthayDate, age} = req.body;
+            const {full_name, phone, birthay_date, age} = req.body;
 
-            if (!fullName || !phone || !birthayDate || !age) {
+            if (!full_name || !phone || !birthay_date || !age) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             const newStudent = await Student.create({
-                fullName,
+                full_name,
                 phone,
-                birthayDate,
+                birthay_date,
                 age
             })
 
@@ -55,19 +55,19 @@ class StudentController {
 
     async put(req, res) {
         try {
-            const {studentId} = req.params;
-            const {fullName, phone, birthayDate, age} = req.body;
+            const {student_id} = req.params;
+            const {full_name, phone, birthay_date, age} = req.body;
 
-            const student = await Student.findByPk(studentId);
+            const student = await Student.findByPk(student_id);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
             }
 
             await student.update({
-                fullName,
+                full_name,
                 phone,
-                birthayDate,
+                birthay_date,
                 age
             })
 
@@ -79,15 +79,15 @@ class StudentController {
 
     async delete(req, res) {
         try {
-            const {studentId} = req.params;
-            const student = await Student.findByPk(studentId);
+            const {student_id} = req.params;
+            const student = await Student.findByPk(student_id);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
             }
 
             await Student.destroy({
-                where: { id: studentId }
+                where: { id: student_id }
             });
 
             return res.status(200).json({"message": "Student deleted"});

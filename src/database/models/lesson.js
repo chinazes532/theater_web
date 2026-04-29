@@ -4,15 +4,15 @@ const { sequelize } = require('../dbServer');
 const Lesson = sequelize.define(
     'Lesson',
     {
-        studentId: {
+        student_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        teacherId: {
+        teacher_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        disciplineId: {
+        discipline_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },

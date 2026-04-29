@@ -18,8 +18,8 @@ class DisciplineController {
 
     async getOne(req, res) {
         try {
-            const { disciplineId } = req.params;
-            const discipline = await Discipline.findByPk(disciplineId);
+            const { discipline_id } = req.params;
+            const discipline = await Discipline.findByPk(discipline_id);
 
             if (!discipline) {
                 return res.status(404).json({"message": "Discipline not found"})
@@ -53,10 +53,10 @@ class DisciplineController {
 
     async put(req, res) {
         try {
-            const { disciplineId } = req.params;
+            const { discipline_id } = req.params;
             const {title, price} = req.body;
 
-            const discipline = await Discipline.findByPk(disciplineId);
+            const discipline = await Discipline.findByPk(discipline_id);
 
             if (!discipline) {
                 return res.status(404).json({"message": "Discipline not found"})
@@ -75,15 +75,15 @@ class DisciplineController {
 
     async delete(req, res) {
         try {
-            const { disciplineId } = req.params;
-            const discipline = await Discipline.findByPk(disciplineId);
+            const { discipline_id } = req.params;
+            const discipline = await Discipline.findByPk(discipline_id);
 
             if (!discipline) {
                 return res.status(404).json({"message": "Discipline not found"})
             }
 
             await Discipline.destroy({
-                where: { id: disciplineId }
+                where: { id: discipline_id }
             });
 
             return res.status(200).json({"message": "Discipline deleted"});

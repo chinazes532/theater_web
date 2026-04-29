@@ -18,8 +18,8 @@ class TeacherController {
 
     async getOne(req, res) {
         try {
-            const { teacherId } = req.params;
-            const teacher = await Teacher.findByPk(teacherId);
+            const { teacher_id } = req.params;
+            const teacher = await Teacher.findByPk(teacher_id);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
@@ -34,16 +34,16 @@ class TeacherController {
 
     async post(req, res) {
         try {
-            const {fullName, phone, birthayDate, age} = req.body;
+            const {full_name, phone, birthay_date, age} = req.body;
 
-            if (!fullName || !phone || !birthayDate || !age) {
+            if (!full_name || !phone || !birthay_date || !age) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             const newTeacher = await Teacher.create({
-                fullName,
+                full_name,
                 phone,
-                birthayDate,
+                birthay_date,
                 age
             })
 
@@ -55,19 +55,19 @@ class TeacherController {
 
     async put(req, res) {
         try {
-            const {teacherId} = req.params;
-            const {fullName, phone, birthayDate, age} = req.body;
+            const {teacher_id} = req.params;
+            const {full_name, phone, birthay_date, age} = req.body;
 
-            const teacher = await Teacher.findByPk(teacherId);
+            const teacher = await Teacher.findByPk(teacher_id);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
             }
 
             await teacher.update({
-                fullName,
+                full_name,
                 phone,
-                birthayDate,
+                birthay_date,
                 age
             })
 
@@ -79,16 +79,16 @@ class TeacherController {
 
     async delete(req, res) {
         try {
-            const {teacherId} = req.params;
+            const {teacher_id} = req.params;
 
-            const teacher = await Teacher.findByPk(teacherId);
+            const teacher = await Teacher.findByPk(teacher_id);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
             }
 
             await Teacher.destroy({
-                where: { id: studentId }
+                where: { id: student_id }
             });
 
             return res.status(200).json({"message": "Teacher deleted"});
