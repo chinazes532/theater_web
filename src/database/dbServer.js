@@ -1,18 +1,27 @@
 const { Sequelize  } = require('sequelize');
+require("dotenv").config();
 
-// const sequelize = new Sequelize({
-//     dialect: 'postgres',
-//     host: 'localhost',
-//     port: 5432,
-//     database: 'ichernikov',
-//     username: 'postgres',
-//     password: '4x24oqwpH'
-// })
+const mode = process.env.MODE; 
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './db.sqlite',
-})
+let sequelize = null;
+
+
+if (mode == "PG") {
+    sequelize = new Sequelize({
+        dialect: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        database: 'ichernikov',
+        username: 'postgres',
+        password: '4x24oqwpH'
+    })
+} else if (mode == "LITE") {
+    sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: './db.sqlite',
+    })
+}
+
 
 const initDB = async() => {
     try {
