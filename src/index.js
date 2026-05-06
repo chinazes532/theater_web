@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/test", authMiddleware(), testAppRoutes);
+app.use("/test", testAppRoutes);
 app.use("/students", authMiddleware(), studentRoutes);
 app.use("/teachers", authMiddleware(), teacherRoutes);
 app.use("/lessons", authMiddleware(), lessonRoutes);
