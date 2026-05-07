@@ -41,7 +41,7 @@ class CanceledController {
             }
 
             const newCanceled = await CanceledLesson.create({
-                lessonId,
+                lesson_id: lessonId,
                 reason
             })
 
@@ -63,7 +63,7 @@ class CanceledController {
             }
 
             await canceledLesson.update({
-                lessonId,
+                lesson_id: lessonId,
                 reason
             })
 
