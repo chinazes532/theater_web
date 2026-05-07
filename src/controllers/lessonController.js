@@ -18,8 +18,8 @@ class LessonController {
 
     async getOne(req, res) {
         try {
-            const { lesson_id } = req.params;
-            const lesson = await Lesson.findByPk(lesson_id);
+            const { lessonId } = req.params;
+            const lesson = await Lesson.findByPk(lessonId);
 
             if (!lesson) {
                 return res.status(404).json({"message": "Lesson not found"})
@@ -85,15 +85,15 @@ class LessonController {
 
     async delete(req, res) {
         try {
-           const {lesson_id} = req.params;
-           const lesson = await Lesson.findByPk(lesson_id);
+           const {lessonId} = req.params;
+           const lesson = await Lesson.findByPk(lessonId);
 
            if (!lesson) {
                 return res.status(404).json({"message": "Lesson not found"})
             }
 
             await Lesson.destroy({
-                where: { id: lesson_id }
+                where: { id: lessonId }
             });
 
             return res.status(200).json({"message": "Lesson deleted"});
