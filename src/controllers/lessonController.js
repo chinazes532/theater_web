@@ -34,7 +34,7 @@ class LessonController {
 
     async post(req, res) {
         try {
-            const {student_id, teacher_id, discipline_id, date} = req.body;
+            let {student_id, teacher_id, discipline_id, date} = req.body;
 
             if (!student_id || !teacher_id || !discipline_id || !date) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
