@@ -18,8 +18,8 @@ class StudentController {
 
     async getOne(req, res) {
         try {
-            const { student_id } = req.params;
-            const student = await Student.findByPk(student_id);
+            const { studentId } = req.params;
+            const student = await Student.findByPk(studentId);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
@@ -55,10 +55,10 @@ class StudentController {
 
     async put(req, res) {
         try {
-            const {student_id} = req.params;
+            const {studentId} = req.params;
             const {full_name, phone, birthay_date, age} = req.body;
 
-            const student = await Student.findByPk(student_id);
+            const student = await Student.findByPk(studentId);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
@@ -79,15 +79,15 @@ class StudentController {
 
     async delete(req, res) {
         try {
-            const {student_id} = req.params;
-            const student = await Student.findByPk(student_id);
+            const {studentId} = req.params;
+            const student = await Student.findByPk(studentId);
 
             if (!student) {
                 return res.status(404).json({"message": "Student not found"})
             }
 
             await Student.destroy({
-                where: { id: student_id }
+                where: { id: studentId }
             });
 
             return res.status(200).json({"message": "Student deleted"});
