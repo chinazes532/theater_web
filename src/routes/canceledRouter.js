@@ -6,7 +6,7 @@ const canceledController = new CanceledController();
 
 router.get("/", canceledController.get);
 router.get("/:canceledId", canceledController.getOne);
-router.post("/:canceledId", canceledController.post);
+router.post("/", canceledController.post);
 router.put("/:canceledId", canceledController.put);
 router.delete("/:canceledId", canceledController.delete);
 

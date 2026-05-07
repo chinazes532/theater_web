@@ -8,7 +8,7 @@ const lessonController = new LessonController();
 
 router.get("/", lessonController.get);
 router.get("/:lessonId", lessonController.getOne);
-router.post("/:lessonId", adminMiddleware(['admin']), lessonController.post);
+router.post("/", adminMiddleware(['admin']), lessonController.post);
 router.put("/:lessonId", adminMiddleware(['admin']), lessonController.put);
 router.delete("/:lessonId", adminMiddleware(['admin']), lessonController.delete);
 

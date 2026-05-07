@@ -7,7 +7,7 @@ const disciplineController = new DisciplineController();
 
 router.get("/", disciplineController.get);
 router.get("/:disciplineId", disciplineController.getOne);
-router.post("/:disciplineId", adminMiddleware(['admin']),  disciplineController.post);
+router.post("/", adminMiddleware(['admin']),  disciplineController.post);
 router.put("/:disciplineId", adminMiddleware(['admin']), disciplineController.put);
 router.delete("/:disciplineId", adminMiddleware(['admin']), disciplineController.delete);
 
