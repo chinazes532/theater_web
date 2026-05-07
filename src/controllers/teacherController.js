@@ -18,8 +18,8 @@ class TeacherController {
 
     async getOne(req, res) {
         try {
-            const { teacher_id } = req.params;
-            const teacher = await Teacher.findByPk(teacher_id);
+            const { teacherId } = req.params;
+            const teacher = await Teacher.findByPk(teacherId);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
@@ -55,10 +55,10 @@ class TeacherController {
 
     async put(req, res) {
         try {
-            const {teacher_id} = req.params;
+            const {teacherId} = req.params;
             const {full_name, phone, birthay_date, age} = req.body;
 
-            const teacher = await Teacher.findByPk(teacher_id);
+            const teacher = await Teacher.findByPk(teacherId);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
@@ -79,16 +79,16 @@ class TeacherController {
 
     async delete(req, res) {
         try {
-            const {teacher_id} = req.params;
+            const {teacherId} = req.params;
 
-            const teacher = await Teacher.findByPk(teacher_id);
+            const teacher = await Teacher.findByPk(teacherId);
 
             if (!teacher) {
                 return res.status(404).json({"message": "Teacher not found"})
             }
 
             await Teacher.destroy({
-                where: { id: student_id }
+                where: { id: teacherId }
             });
 
             return res.status(200).json({"message": "Teacher deleted"});
