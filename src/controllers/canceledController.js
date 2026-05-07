@@ -6,7 +6,7 @@ class CanceledController {
             const canceledLessons = await CanceledLesson.findAll();
 
             if (canceledLessons.length === 0) {
-                res.status(404).json({"message": "Canceled lessons not found"})
+                return res.status(404).json({"message": "Canceled lessons not found"})
             }
 
             return res.json({"canceledLessons": canceledLessons})
@@ -37,7 +37,7 @@ class CanceledController {
             const {lessonId, reason} = req.body;
 
             if (!lessonId || !reason) {
-            return res.status(404).json({"message": "Payload is incorrect"}); 
+                return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             const newCanceled = await CanceledLesson.create({
