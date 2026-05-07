@@ -18,8 +18,8 @@ class CanceledController {
 
     async getOne(req, res) {
         try {
-            const { canceled_id } = req.params;
-            const canceledLesson = await CanceledLesson.findByPk(canceled_id);
+            const { canceledId } = req.params;
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
 
             if (!canceledLesson) {
                 return res.status(404).json({"message": "Canceled lesson not found"})
@@ -34,14 +34,14 @@ class CanceledController {
 
     async post(req, res) {
         try {
-            const {lesson_id, reason} = req.body;
+            const {lessonId, reason} = req.body;
 
-            if (!lesson_id || !reason) {
+            if (!lessonId || !reason) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             const newCanceled = await CanceledLesson.create({
-                lesson_id,
+                lessonId,
                 reason
             })
 
@@ -53,17 +53,17 @@ class CanceledController {
 
     async put(req, res) {
         try {
-            const { canceled_id } = req.params;
-            const {lesson_id, reason} = req.body;
+            const { canceledId } = req.params;
+            const {lessonId, reason} = req.body;
 
-            const canceledLesson = await CanceledLesson.findByPk(canceled_id);
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
 
             if (!canceledLesson) {
                 return res.status(404).json({"message": "Canceled lesson not found"})
             }
 
             await canceledLesson.update({
-                lesson_id,
+                lessonId,
                 reason
             })
 
@@ -75,16 +75,16 @@ class CanceledController {
 
     async delete(req, res) {
         try {
-            const { canceled_id } = req.params;
+            const { canceledId } = req.params;
 
-            const canceledLesson = await CanceledLesson.findByPk(canceled_id);
+            const canceledLesson = await CanceledLesson.findByPk(canceledId);
 
             if (!canceledLesson) {
                 return res.status(404).json({"message": "Canceled lesson not found"})
             }
 
             await CanceledLesson.destroy({
-                where: { id: canceled_id }
+                where: { id: canceledId }
             });
 
             return res.status(200).json({"message": "Canceled lesson deleted"});
