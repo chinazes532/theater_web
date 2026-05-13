@@ -4,6 +4,11 @@ const { sequelize } = require('../dbServer');
 const CanceledLesson = sequelize.define(
     'CanceledLesson',
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         lesson_id: {
             type: DataTypes.INTEGER,
             allowNull: false,

@@ -1,4 +1,5 @@
 const { CanceledLesson } = require("../database/models/canceled_lessons")
+const { Lesson } = require("../database/models/lesson"); 
 
 class CanceledController {
     async get(req, res) {
@@ -34,20 +35,27 @@ class CanceledController {
 
     async post(req, res) {
         try {
-            const {lessonId, reason} = req.body;
-
+            const { lessonId, reason } = req.body;
+    
             if (!lessonId || !reason) {
-                return res.status(404).json({"message": "Payload is incorrect"}); 
+                return res.status(400).json({"message": "Payload is incorrect"}); 
             }
-
+    
+            // 1. Проверяем, существует ли урок в базе данных
+            const lesson = await Lesson.findByPk(lessonId);
+            if (!lesson) {
+                return res.status(404).json({"message": "Урок с указанным ID не существует в базе данных"});
+            }
+    
+            // 2. Создаем отмену, если урок найден
             const newCanceled = await CanceledLesson.create({
                 lesson_id: lessonId,
                 reason
-            })
-
+            });
+    
             return res.status(201).json({"canceled": newCanceled});
         } catch (error) {
-            return res.status(500).json({"message": `${error}`})
+            return res.status(500).json({"message": `${error}`});
         }
     }
 

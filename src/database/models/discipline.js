@@ -2,9 +2,14 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../dbServer');
 
 const Discipline = sequelize.define(
-    'Discipline',
+    'discipline',
     {
-        title: {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },

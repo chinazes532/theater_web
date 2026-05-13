@@ -27,6 +27,7 @@ const initDB = async() => {
     try {
         await sequelize.authenticate();
         await sequelize.sync();
+        // await sequelize.sync({ alter: true });
         console.log("DB is created");
     } catch (error) {
         console.error(`Erorr - ${error}`);

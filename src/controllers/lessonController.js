@@ -34,26 +34,28 @@ class LessonController {
 
     async post(req, res) {
         try {
-            let {student_id, teacher_id, discipline_id, date} = req.body;
-
-            if (!student_id || !teacher_id || !discipline_id || !date) {
-            return res.status(404).json({"message": "Payload is incorrect"}); 
+            // Принимаем time из тела запроса
+            let { student_id, teacher_id, discipline_id, date, time } = req.body;
+    
+            // Добавляем time в обязательную валидацию
+            if (!student_id || !teacher_id || !discipline_id || !date || !time) {
+                return res.status(404).json({"message": "Payload is incorrect"}); 
             }
-
-            date = new Date(date); 
-
+    
             const newLesson = await Lesson.create({
                 student_id,
                 teacher_id,
                 discipline_id,
-                date
-            })
-
+                date, // Передаем строку типа "2026-04-01"
+                time  // Передаем строку типа "16:00:00"
+            });
+    
             return res.status(201).json({"lesson": newLesson});
         } catch (error) {
-            return res.status(500).json({"message": `${error}`})
+            return res.status(500).json({"message": `${error}`});
         }
     }
+    
 
     async put(req, res) {
         try {

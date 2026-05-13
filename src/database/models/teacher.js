@@ -4,6 +4,11 @@ const { sequelize } = require('../dbServer');
 const Teacher = sequelize.define(
     'Teacher',
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         full_name: {
             type: DataTypes.STRING,
             allowNull: false,

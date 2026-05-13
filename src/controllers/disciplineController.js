@@ -6,7 +6,7 @@ class DisciplineController {
             const disciplines = await Discipline.findAll();
 
             if (disciplines.length === 0) {
-                res.status(404).json({"message": "Disciplines not found"})
+                return res.status(404).json({"message": "Disciplines not found"})
             }
 
             return res.json({"disciplines": disciplines})
@@ -34,14 +34,14 @@ class DisciplineController {
 
     async post(req, res) {
         try {
-            const {title, price} = req.body;
+            const {name, price} = req.body;
 
-            if (!title || !price) {
+            if (!name || !price) {
             return res.status(404).json({"message": "Payload is incorrect"}); 
             }
 
             const newDiscipline = await Discipline.create({
-                title,
+                name,
                 price
             })
 
@@ -54,7 +54,7 @@ class DisciplineController {
     async put(req, res) {
         try {
             const { disciplineId } = req.params;
-            const {title, price} = req.body;
+            const {name, price} = req.body;
 
             const discipline = await Discipline.findByPk(disciplineId);
 
@@ -63,7 +63,7 @@ class DisciplineController {
             }
 
             await discipline.update({
-                title,
+                name,
                 price
             })
 

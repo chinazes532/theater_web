@@ -4,6 +4,11 @@ const { sequelize } = require('../dbServer');
 const Student = sequelize.define(
     'Student',
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         full_name: {
             type: DataTypes.STRING,
             allowNull: false,
